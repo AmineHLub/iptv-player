@@ -16,6 +16,13 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  box-shadow: 0 0 0px 1000px #1a1a1a inset;
+}
+
 .App {
   position: fixed;
   top: 0;
@@ -172,6 +179,7 @@ input[type="number"] {
           }
         }
         .submit-xtream-details {
+          cursor: pointer;
           height: 40px;
           width: 70px;
           font-weight: bold;
