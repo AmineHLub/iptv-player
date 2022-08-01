@@ -15,11 +15,14 @@ export default function Xtream({ setUsingXtream, setPlaylist }: { setUsingXtream
 
   const xtreamLogging: React.FormEventHandler<HTMLFormElement> = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const fetchedData:{validity:boolean, data:object} = await checkAndSubmit(data);
-    if (fetchedData?.validity) {
-      console.log('valid')
-    } else {
-      console.log('invalid')
+    let fetchedData:{validity:boolean, data:object};
+    try{
+      fetchedData = await checkAndSubmit(data);
+      setPlaylist(fetchedData.data)
+      setUsingXtream(false)
+    }
+    catch(e){
+      console.log('DATA IS INVALID')
     }
   }
 
