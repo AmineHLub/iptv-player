@@ -19,6 +19,7 @@ export default function Xtream({ setUsingXtream, setPlaylist }: { setUsingXtream
     try{
       fetchedData = await checkAndSubmit(data);
       setPlaylist(fetchedData.data)
+      localStorage.setItem('playlist', JSON.stringify(fetchedData.data))
       setUsingXtream(false)
     }
     catch(e){

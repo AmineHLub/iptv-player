@@ -28,3 +28,20 @@ export const getStreamCategories = async (url:string, username:string, password:
     return [];
   }
 }
+
+export const reCheckLogin = async (url:string, username:string, password:string):Promise<boolean> => {
+  const builtUrl = `http://${url}/player_api.php?username=${username}&password=${password}`;
+  let validation:boolean = false;
+  try {
+    const response = await axios(builtUrl);
+    if (response.data.user_info?.status?.toLowerCase() === 'active') {
+      validation = true;
+    }
+    else {
+      validation = false;
+    }
+  } catch (error) {
+    validation = false;
+  }
+  return validation;
+}

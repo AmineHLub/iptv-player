@@ -7,7 +7,7 @@ import timeConverter from './Tools/timeConverter'
 import loadingGif from '../Assets/Spinner-1.2s-231px.gif'
 import {getLiveCategories, getVodCategories, getStreamCategories} from './Tools/getCategories'
 
-export default function XtreamDashboard({playlist}: {playlist: any}) {
+export default function XtreamDashboard({playlist, setPlaylist}: {playlist: any, setPlaylist: (playlist: any) => void}) {
   const [loadingComponent, setLoadingComponent] = useState(true)
   const [liveCategories, setLiveCategories]= useState([] as (string | number)[])
   const [vodCategories, setVodCategories] = useState([] as (string | number)[])
