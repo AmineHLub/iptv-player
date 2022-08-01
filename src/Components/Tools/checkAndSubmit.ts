@@ -16,14 +16,13 @@ const checkAndSubmit = async (data:{host:string,port:string,username:string,pass
       if (res.data.user_info?.status?.toLowerCase() === 'active') {
         fetchedData = {
           validity: true,
-          data: res.data
+          data: {...res.data, url: `${data.host}:${data.port}`}
         }
         resolve(fetchedData)
       } else {
         reject(fetchedData)
       }
     }).catch(err => {
-      console.error(err)
       reject(fetchedData)
       toast.dismiss()
       toast.error('Invalid Host:Port')

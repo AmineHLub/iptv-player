@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 input::-webkit-outer-spin-button,
@@ -38,6 +39,7 @@ input:-webkit-autofill:focus {
     left: 50%;
     transform: translate(-50%, -50%);
     height: 70%;
+    max-height: 650px;
     width: 60%;
     min-height: 450px;
     min-width: 500px;
