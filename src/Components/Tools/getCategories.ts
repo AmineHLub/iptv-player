@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getLiveCategories = async (url:string, username:string, password:string):Promise<(string | number)[]> => {
+export const getLiveCategories = async (url:string, username:string, password:string):Promise<({category_id:string | number, category_name:string})[]> => {
   const builtUrl = `http://${url}/player_api.php?username=${username}&password=${password}&action=get_live_categories`;
   try {
     const response = await axios(builtUrl);
@@ -9,7 +9,7 @@ export const getLiveCategories = async (url:string, username:string, password:st
     return [];
   }
 }
-export const getVodCategories = async (url:string, username:string, password:string):Promise<(string | number)[]> => {
+export const getVodCategories = async (url:string, username:string, password:string):Promise<({category_id:string | number, category_name:string})[]> => {
   const builtUrl = `http://${url}/player_api.php?username=${username}&password=${password}&action=get_vod_categories`;
   try {
     const response = await axios(builtUrl);
@@ -19,7 +19,7 @@ export const getVodCategories = async (url:string, username:string, password:str
   }
 }
 
-export const getStreamCategories = async (url:string, username:string, password:string):Promise<(string | number)[]> => {
+export const getStreamCategories = async (url:string, username:string, password:string):Promise<({category_id:string | number, category_name:string})[]> => {
   const builtUrl = `http://${url}/player_api.php?username=${username}&password=${password}&action=get_series_categories`;
   try {
     const response = await axios(builtUrl);

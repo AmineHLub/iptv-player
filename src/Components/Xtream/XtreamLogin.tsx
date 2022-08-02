@@ -1,10 +1,13 @@
-import { useState } from 'react'
-import xtreamLogo from '../Assets/xtream-logo.png'
-import OpenEye from '../Assets/openpwd.png'
-import ClosedEye from '../Assets/closedpwd.png'
-import checkAndSubmit from './Tools/checkAndSubmit'
+import { useState, useContext } from 'react'
+import xtreamLogo from '../../Assets/xtream-logo.png'
+import OpenEye from '../../Assets/openpwd.png'
+import ClosedEye from '../../Assets/closedpwd.png'
+import checkAndSubmit from '../Tools/checkAndSubmit'
+import { PlayListContext} from '../../Contexts/PlayListContext'
 
-export default function Xtream({ setUsingXtream, setPlaylist }: { setUsingXtream: (active: boolean) => void, setPlaylist: (playlist: any) => void }) {
+
+export default function Xtream({ setUsingXtream }: { setUsingXtream: (active: boolean) => void }) {
+  const { setPlaylist } = useContext(PlayListContext as any)
   const [viewPwd, setCiewPwd] = useState(false)
   const [data, setData] = useState({
     host: '',

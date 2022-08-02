@@ -3,9 +3,9 @@ import './App.scss'
 import iptvLogo from './Assets/iptv-logo.png'
 import m3uLogo from './Assets/m3u-logo.png'
 import xtreamLogo from './Assets/xtream-logo.png'
-import Xtream from './Components/XtreamLogin'
+import Xtream from './Components/Xtream/XtreamLogin'
 
-export default function Splash({ setPlaylist }: { setPlaylist: (playlist: any) => void }) {
+export default function Splash() {
   const [usingXtream, setUsingXtream] = useState(false)
   return (
     <div className="fixed-splash">
@@ -24,7 +24,7 @@ export default function Splash({ setPlaylist }: { setPlaylist: (playlist: any) =
               </div>
             </div>
           </>
-        ) : <Xtream setUsingXtream={setUsingXtream} setPlaylist={setPlaylist} />
+        ) : <Xtream setUsingXtream={setUsingXtream} />
       }
     </div>
   )
