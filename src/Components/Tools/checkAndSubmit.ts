@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
-const checkAndSubmit = async (data:{host:string,port:string,username:string,password:string }) => {
+
+type Data = {
+  host:string,port:string,username:string,password:string
+ }
+const checkAndSubmit = async (data:Data) => {
   let url:string = ''
   if (data.host.includes('https')) {
     url = `https://${data.host}:${data.port}/player_api.php?username=${data.username}&password=${data.password}`

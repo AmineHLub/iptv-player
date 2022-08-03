@@ -5,8 +5,9 @@ import ClosedEye from '../../Assets/closedpwd.png'
 import checkAndSubmit from '../Tools/checkAndSubmit'
 import { PlayListContext} from '../../Contexts/PlayListContext'
 
+type PropTypes = { setUsingXtream: (active: boolean) => void }
 
-export default function Xtream({ setUsingXtream }: { setUsingXtream: (active: boolean) => void }) {
+export default function Xtream({ setUsingXtream }: PropTypes) {
   const { setPlaylist } = useContext(PlayListContext as any)
   const [viewPwd, setCiewPwd] = useState(false)
   const [data, setData] = useState({

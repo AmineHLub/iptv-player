@@ -2,20 +2,24 @@ import { useEffect, useState, useContext } from 'react'
 import '../../Stylesheets/xtreamui.scss'
 import { getLiveCategories, getVodCategories, getStreamCategories } from '../Tools/getCategories'
 import XtreamCategories from './CategoryComponents/XtreamCategories'
+import LoadingComponent from '../LoadingComponent'
 import iptvLogo from '../../Assets/iptv-logo.png'
 import settings from '../../Assets/settings.png'
 import logout from '../../Assets/logout.png'
 import timeConverter from '../Tools/timeConverter'
-import loadingGif from '../../Assets/Spinner-1.2s-231px.gif'
 import { PlayListContext } from '../../Contexts/PlayListContext'
 
 export default function XtreamDashboard() {
+
+  type CategoryData = ({category_id:string | number, category_name:string})[]
+
   const { playlist, setPlaylist } = useContext(PlayListContext as any)
   const [loadingComponent, setLoadingComponent] = useState(true)
-  const [liveCategories, setLiveCategories] = useState([] as ({category_id:string | number, category_name:string})[])
-  const [vodCategories, setVodCategories] = useState([] as ({category_id:string | number, category_name:string})[])
-  const [seriesCategories, setSeriesCategories] = useState([] as ({category_id:string | number, category_name:string})[])
-  const [streamType, setStreamType] = useState(null as null | ({category_id:string | number, category_name:string})[])
+  const [liveCategories, setLiveCategories] = useState([] as CategoryData)
+  const [vodCategories, setVodCategories] = useState([] as CategoryData)
+  const [seriesCategories, setSeriesCategories] = useState([] as CategoryData)
+  const [streamType, setStreamType] = useState(null as null | CategoryData)
+
   useEffect(() => {
     getLiveCategories(playlist.url, playlist.user_info.username, playlist.user_info.password).then((data) => {
       setLiveCategories(data)
@@ -37,11 +41,7 @@ export default function XtreamDashboard() {
   return (
     <>
       {
-        loadingComponent ? (
-          <div className='loading-component'>
-            <img src={loadingGif} alt='loading' />
-          </div>
-        ) : null
+        loadingComponent && <LoadingComponent />
       }
       <nav className="xtream-nav">
         <ul>
