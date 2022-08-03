@@ -27,16 +27,18 @@ export default function XtreamCategoryContent({ category }: PropTypes) {
       })
   }, [playlist, category])
   console.log(loadingComponent)
+
   return (
-      <div className="category-content-wrapper">
+    <div className="category-content-wrapper">
       {
         loadingComponent && <LoadingComponent type={'in-app-loading'} />
       }
-        {
-          categoryData.map((item, index) => (
-            <Card key={item.stream_id || index} liveData={item} />
-          ))
-        }
-      </div>
+      {!loadingComponent && !categoryData.length ? <div className="no-content" /> : null}
+      {
+        categoryData.map((item, index) => (
+          <Card key={item.stream_id || index} liveData={item} />
+        ))
+      }
+    </div>
   )
 }

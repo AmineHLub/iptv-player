@@ -11,14 +11,22 @@ import { PlayListContext } from '../../Contexts/PlayListContext'
 
 export default function XtreamDashboard() {
 
-  type CategoryData = ({category_id:string | number, category_name:string})[]
+  type CategoryData = ({
+    category_id:string | number,
+    category_name:string,
+  })[]
+
+  type Stream = {
+    streams: CategoryData,
+    type: string
+  }
 
   const { playlist, setPlaylist } = useContext(PlayListContext as any)
   const [loadingComponent, setLoadingComponent] = useState(true)
   const [liveCategories, setLiveCategories] = useState([] as CategoryData)
   const [vodCategories, setVodCategories] = useState([] as CategoryData)
   const [seriesCategories, setSeriesCategories] = useState([] as CategoryData)
-  const [streamType, setStreamType] = useState(null as null | CategoryData)
+  const [streamType, setStreamType] = useState(null as null | Stream)
 
   useEffect(() => {
     getLiveCategories(playlist.url, playlist.user_info.username, playlist.user_info.password).then((data) => {
@@ -62,19 +70,28 @@ export default function XtreamDashboard() {
               <div className='xtream-main-content'>
                 <div
                   className={liveCategories.length > 0 ? 'selection-card live-xtream' : 'selection-card live-xtream empty-xtream'}
-                  onClick={() => setStreamType(liveCategories)}>
+                  onClick={() => setStreamType({
+                    streams: liveCategories,
+                    type: 'live'
+                  })}>
                   <img src="https://i.imgur.com/xmBrXQG.png" alt="live-xtream" />
                   <h3>{`${liveCategories.length} categories`}</h3>
                 </div>
                 <div
                   className={vodCategories.length > 0 ? 'selection-card vod-xtream' : 'selection-card vod-xtream empty-xtream'}
-                  onClick={() => setStreamType(vodCategories)} >
+                  onClick={() => setStreamType({
+                    streams: vodCategories,
+                    type: 'vod'
+                  })}>
                   <img src="https://i.imgur.com/WDhrMxV.png" alt="vod-xtream" />
                   <h3>{`${vodCategories.length} categories`}</h3>
                 </div>
                 <div
                   className={seriesCategories.length > 0 ? 'selection-card series-xtream' : 'selection-card series-xtream empty-xtream'}
-                  onClick={() => setStreamType(seriesCategories)}>
+                  onClick={() => setStreamType({
+                    streams: seriesCategories,
+                    type: 'series'
+                  })}>
                   <img src="https://i.imgur.com/HGzp076.png" alt="series-xtream" />
                   <h3>{`${seriesCategories.length} categories`}</h3>
                 </div>
