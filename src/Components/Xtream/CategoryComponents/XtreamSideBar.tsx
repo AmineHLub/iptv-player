@@ -6,26 +6,26 @@ type Stream = {
 }
 
 type PropTypes = {
-  streamType: Stream,
-  setStreamType: (streamType: null | Stream) => void,
+  streamTypeAndData: Stream,
+  setStreamTypeAndData: (streamTypeAndData: null | Stream) => void,
   category: string | number,
   setCategory: (category: string | number) => void
 }
 
 export default function XtreamSideBar(
-  { streamType, setStreamType, category, setCategory }: PropTypes) {
+  { streamTypeAndData, setStreamTypeAndData, category, setCategory }: PropTypes) {
   const [searchInput, setSearchInput] = useState('' as string)
   return (
     <div className="sidebar-wraper">
       <div className="sidebar-controle">
-        <button onClick={() => setStreamType(null)}>
+        <button onClick={() => setStreamTypeAndData(null)}>
           ←
         </button>
         <input type="text" onChange={(e) => setSearchInput(e.target.value)} placeholder='search...' />
       </div>
       <ul className='category-list'>
         {
-          streamType.streams?.map((categorylist, index) => (
+          streamTypeAndData.streams?.map((categorylist, index) => (
             <React.Fragment key={categorylist.category_id || index}>
             {
               categorylist.category_name.toLowerCase().includes(searchInput.toLowerCase()) && (

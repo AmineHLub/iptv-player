@@ -8,17 +8,17 @@ type Stream = {
 }
 
 type PropTypes = { 
-  streamType: Stream,
-  setStreamType: (streamType: null | Stream) => void
+  streamTypeAndData: Stream,
+  setStreamTypeAndData: (streamTypeAndData: null | Stream) => void
  }
 
 
-export default function XtreamCategories({ streamType, setStreamType }:PropTypes){
-  const [category, setCategory] = useState(streamType.streams[0].category_id as string | number)
+export default function XtreamCategories({ streamTypeAndData, setStreamTypeAndData }:PropTypes){
+  const [category, setCategory] = useState(streamTypeAndData.streams[0].category_id as string | number)
   return (
     <main className="xtream-category-main">
-      <XtreamSideBar streamType={streamType} setStreamType={setStreamType} category={category} setCategory={setCategory}/>
-      <XtreamCategoryContent category={category}/>
+      <XtreamSideBar streamTypeAndData={streamTypeAndData} setStreamTypeAndData={setStreamTypeAndData} category={category} setCategory={setCategory}/>
+      <XtreamCategoryContent category={category} type={streamTypeAndData.type}/>
     </main>
   )
 }
