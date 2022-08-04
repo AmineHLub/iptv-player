@@ -201,6 +201,9 @@
     width: 100%;
     min-height: 100%;
     overflow-y: auto;
+    &.hide-overflow {
+      overflow-y: hidden;
+    }
     .in-app-loading{
       position: absolute;
       top: 0;
@@ -244,6 +247,7 @@
       display: flex;
       flex-wrap: wrap;
       .card-wrapper {
+        position: relative;
         cursor: pointer;
         width: 170px;
         height: 200px;
@@ -256,8 +260,22 @@
         align-items: center;
         &:hover {
           background-color: #1a1a1a;
+          .information {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border: none;
+            width: 20px;
+            height: 20px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50%;
+          }
         }
-        img {
+        .information {
+          display: none;
+        }
+        .live-icon {
           margin: 15px 0;
           width: 120px;
           height: 80px;
@@ -268,19 +286,51 @@
         h2 {
           font-size: 1rem;
           height: 30%;
+          border-radius: 0 0 8px 8px;
         }
         &.not-live {
           justify-content: flex-end;
           background-repeat: no-repeat;
           background-size: 100%;
           h2 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             height: auto;
             word-break: break-all;
             padding: 5px 10px;
             background-color: white;
             color: #1a1a1a;
-            border-radius: 8px;
           }
+        }
+      }
+      .stream-info-popup {
+        position: fixed;
+        top: 70px;
+        right: 0;
+        height: 100%;
+        background: rgb(64,64,64);
+        background: linear-gradient(48deg, rgba(64,64,64,1) 0%, rgba(26,26,26,1) 43%, rgba(0,0,0,1) 100%);
+        z-index: 1;
+        display: flex;
+        .img-container {
+          height: 100%;
+          img{
+            height: 100%;
+          }
+        }
+        .info-container {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          h2 {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0;
+          }
+
         }
       }
     }

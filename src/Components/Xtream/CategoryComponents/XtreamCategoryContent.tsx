@@ -18,7 +18,7 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
   const [categoryData, setCategoryData] = useState([] as CategoryDataTypes[])
   const [searchInput, setSearchInput] = useState('' as string)
   const [widthSize, setWidthSize] = useState(0)
-  
+
   function handleWindowResize() {
     setWidthSize(document.querySelector('.card-listing')?.clientWidth || 0)
   }
@@ -42,13 +42,11 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  }, [playlist, category, loadingComponent])
+  }, [])
 
 
-  const marginWidth:number = Math.floor(Math.floor(widthSize % 170) / 2 / Math.floor(widthSize / 170))
+  const marginWidth: number = Math.floor(Math.floor(widthSize % 170) / 2 / Math.floor(widthSize / 170))
 
-
-  console.log(searchInput)
   return (
     <div className="category-content-wrapper">
       {
@@ -64,7 +62,6 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
             <React.Fragment key={item.stream_id}>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) && (
                 <Card
-
                   key={item.stream_id || index}
                   marginWidth={marginWidth}
                   liveData={item}
