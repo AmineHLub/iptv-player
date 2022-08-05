@@ -26,7 +26,7 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
     if (document.querySelector('.category-content-wrapper')) {
       document.querySelector('.category-content-wrapper')!.scrollTop = scrollValue
     }
-  } , [popupStreamInfo])
+  }, [popupStreamInfo])
 
   useEffect(() => {
     setCategoryData([])

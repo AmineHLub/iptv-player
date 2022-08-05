@@ -67,17 +67,6 @@
       align-items: center;
       &:hover {
         background-color: #1a1a1a;
-        .information {
-          display: block;
-          position: absolute;
-          top: 5px;
-          right: 5px;
-          border: none;
-          width: 20px;
-          height: 20px;
-          background-color: rgb(255, 255, 255);
-          border-radius: 50%;
-        }
       }
       .information {
         display: none;
@@ -100,6 +89,17 @@
         background-repeat: no-repeat;
         background-size: 100% 100%, 250px;
         background-position: center;
+        &:hover .information {
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border: none;
+            width: 20px;
+            height: 20px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50%;
+        }
         h2 {
           position: absolute;
           bottom: 0;

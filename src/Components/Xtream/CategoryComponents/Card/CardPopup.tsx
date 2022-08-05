@@ -6,7 +6,7 @@ type Props = {
 }
 
 export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props) {
-  
+
   const {
     stream_icon, cover, youtube_trailer,
     backdrop_path, name, genre, releaseDate,
@@ -38,16 +38,16 @@ export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props
             </div>
           </div>
           <div className='plot'>
-            <p><strong>Plot: </strong>{plot} ing elit. Recusandae rerum facere nemo odio alias illum reiciendis, laborum veritatis, deserunt ex placeat quos! Nam nostrum inventore hic molestias placeat distinctio debitis.</p>
+            <p><strong>Plot: </strong>{plot ? plot : 'N/A'}</p>
           </div>
         </div>
       </div>
       <div className="trailer-and-covers">
         <div className="trailer-container">
-          <a 
-          href={youtube_trailer && `https://www.youtube.com/watch?v=${youtube_trailer}`}
-          target="_blank" 
-          className={!youtube_trailer ? 'disabled'  : ''}
+          <a
+            href={youtube_trailer && `https://www.youtube.com/watch?v=${youtube_trailer}`}
+            target="_blank"
+            className={!youtube_trailer ? 'disabled' : ''}
           >Watch Trailer</a>
         </div>
         <div className='covers-container'>
