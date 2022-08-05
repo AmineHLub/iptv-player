@@ -14,6 +14,7 @@ type PropTypes = {
 
 export default function XtreamSideBar(
   { streamTypeAndData, setStreamTypeAndData, category, setCategory }: PropTypes) {
+    
   const [searchInput, setSearchInput] = useState('' as string)
   return (
     <div className="sidebar-wraper">

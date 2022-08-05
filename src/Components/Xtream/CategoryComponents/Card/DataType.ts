@@ -9,4 +9,5 @@ export default interface CategoryDataTypes {
   genre: string,
   releaseDate: string,
   rating: string,
+  backdrop_path: (string)[]
 }

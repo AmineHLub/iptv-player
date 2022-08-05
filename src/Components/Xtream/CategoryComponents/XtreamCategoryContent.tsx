@@ -1,8 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useMemo, useCallback } from 'react'
 import { PlayListContext } from '../../../Contexts/PlayListContext'
 import { getCategoriesDetails } from '../../Tools/getCategoriesDetails'
 import LoadingComponent from '../../LoadingComponent'
 import Card from './Card/Card'
+import CardPopup from './Card/CardPopup'
 import CategoryDataTypes from './Card/DataType'
 
 type PropTypes = {
@@ -17,10 +18,13 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
   const [loadingComponent, setLoadingComponent] = useState(false)
   const [categoryData, setCategoryData] = useState([] as CategoryDataTypes[])
   const [searchInput, setSearchInput] = useState('' as string)
+  const [popupStreamInfo, setPopupStreamInfo] = useState(null as null | CategoryDataTypes)
+
 
 
   useEffect(() => {
     setCategoryData([])
+    setPopupStreamInfo(null)
     setLoadingComponent(true)
     getCategoriesDetails(playlist.url, playlist.user_info.username, playlist.user_info.password, category, type)
       .then((data) => {
@@ -31,8 +35,8 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
       })
   }, [playlist, category])
 
-  return (
-    <div className="category-content-wrapper">
+  const loadAllData = useMemo(() => (
+    <>
       {
         loadingComponent && <LoadingComponent type={'in-app-loading'} />
       }
@@ -47,6 +51,8 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) && (
                 <Card
                   key={item.stream_id || index}
+                  popupStreamInfo={popupStreamInfo}
+                  setPopupStreamInfo={setPopupStreamInfo}
                   liveData={item}
                   type={type} />
               )
@@ -55,6 +61,19 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
           ))
         }
       </div>
+    </>
+  ), [searchInput, category, categoryData])
+
+
+  return (
+    <div className={popupStreamInfo ? "category-content-wrapper hide-overflow" : "category-content-wrapper"}>
+      {
+        !popupStreamInfo ? loadAllData :
+          <CardPopup
+            popupStreamInfo={popupStreamInfo}
+            setPopupStreamInfo={setPopupStreamInfo}
+          />
+      }
     </div>
   )
 }

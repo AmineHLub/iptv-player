@@ -6,11 +6,12 @@ import CardPopup from './CardPopup'
 type PropTypes = {
   liveData: CategoryDataTypes
   type: string
+  popupStreamInfo: null | CategoryDataTypes
+  setPopupStreamInfo: (popupStreamInfo: null | CategoryDataTypes) => void
 }
 
-export default function Card({ liveData, type }: PropTypes) {
+export default function Card({ liveData, type, popupStreamInfo, setPopupStreamInfo }: PropTypes) {
   const { stream_id, series_id, stream_icon, cover, name } = liveData
-  const [popupStreamInfo, setPopupStreamInfo] = useState(null as null | CategoryDataTypes)
 
   const handlingStreamInfo = (e: any, data: CategoryDataTypes) => {
     e.stopPropagation()
@@ -32,8 +33,8 @@ export default function Card({ liveData, type }: PropTypes) {
       <div
         className={type !== 'live' ? 'card-wrapper not-live' : 'card-wrapper'}
         style={type !== 'live' && stream_icon ?
-          { backgroundImage: `url(${stream_icon})`}
-          : { backgroundImage: `url(${cover})`}}
+          { backgroundImage: `url(${stream_icon}), url("https://i.imgur.com/JcImM53.png")`}
+          : { backgroundImage: `url(${cover}), url("https://i.imgur.com/JcImM53.png")`}}
         onClick={(e) => console.log('shouldnt')}
       >
         <img
