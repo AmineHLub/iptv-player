@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import CategoryDataTypes from './DataType'
-import isValidUrl from '../../../Tools/isValidUrl'
-import CardPopup from './CardPopup'
+import validateUrl from '../../../Tools/validateUrl'
 
 type PropTypes = {
   liveData: CategoryDataTypes
@@ -46,7 +44,7 @@ export default function Card({ liveData, type, setScrollValue, setPopupStreamInf
           <img
             className='live-icon'
             loading="lazy"
-            src={isValidUrl(stream_icon) || isValidUrl(cover) || 'https://i.imgur.com/4nqxosG.png'}
+            src={validateUrl(stream_icon) || validateUrl(cover) || 'https://i.imgur.com/4nqxosG.png'}
             alt={name} />
         ) : null
       }
