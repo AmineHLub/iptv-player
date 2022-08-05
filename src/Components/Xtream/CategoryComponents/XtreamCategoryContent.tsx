@@ -19,8 +19,14 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
   const [categoryData, setCategoryData] = useState([] as CategoryDataTypes[])
   const [searchInput, setSearchInput] = useState('' as string)
   const [popupStreamInfo, setPopupStreamInfo] = useState(null as null | CategoryDataTypes)
+  const [scrollValue, setScrollValue] = useState(0 as number)
 
 
+  useEffect(() => {
+    if (document.querySelector('.category-content-wrapper')) {
+      document.querySelector('.category-content-wrapper')!.scrollTop = scrollValue
+    }
+  } , [popupStreamInfo])
 
   useEffect(() => {
     setCategoryData([])
@@ -50,8 +56,8 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
             <React.Fragment key={item.stream_id}>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) && (
                 <Card
+                  setScrollValue={setScrollValue}
                   key={item.stream_id || index}
-                  popupStreamInfo={popupStreamInfo}
                   setPopupStreamInfo={setPopupStreamInfo}
                   liveData={item}
                   type={type} />

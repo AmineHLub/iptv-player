@@ -6,30 +6,22 @@ import CardPopup from './CardPopup'
 type PropTypes = {
   liveData: CategoryDataTypes
   type: string
-  popupStreamInfo: null | CategoryDataTypes
   setPopupStreamInfo: (popupStreamInfo: null | CategoryDataTypes) => void
+  setScrollValue: (scrollValue: number) => void
 }
 
-export default function Card({ liveData, type, popupStreamInfo, setPopupStreamInfo }: PropTypes) {
+export default function Card({ liveData, type, setScrollValue, setPopupStreamInfo }: PropTypes) {
   const { stream_id, series_id, stream_icon, cover, name } = liveData
 
   const handlingStreamInfo = (e: any, data: CategoryDataTypes) => {
     e.stopPropagation()
-    if (document.querySelector('.category-content-wrapper') && !document.querySelector('.category-content-wrapper')?.classList.contains('hide-overflow')) {
-      document.querySelector('.category-content-wrapper')?.classList.add('hide-overflow')
+    if (document.querySelector('.category-content-wrapper')) {
+      setScrollValue(document.querySelector('.category-content-wrapper')?.scrollTop || 0)
     }
     setPopupStreamInfo(data)
   }
 
   return (
-    <>
-      {
-        popupStreamInfo && (
-          <CardPopup
-            popupStreamInfo={popupStreamInfo}
-            setPopupStreamInfo={setPopupStreamInfo}
-          />)
-      }
       <div
         className={type !== 'live' ? 'card-wrapper not-live' : 'card-wrapper'}
         style={type !== 'live' && stream_icon ?
@@ -53,6 +45,5 @@ export default function Card({ liveData, type, popupStreamInfo, setPopupStreamIn
         }
         <h2>{liveData.name.replace(/[^a-zA-Z0-9 \[|\]]/g, '')}</h2>
       </div>
-    </>
   )
 }
