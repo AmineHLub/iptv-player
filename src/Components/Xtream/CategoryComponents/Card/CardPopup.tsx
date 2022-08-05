@@ -8,7 +8,7 @@ type Props = {
 
 export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props) {
 
-  const  { isNotForInfo } = popupStreamInfo
+  const { isNotForInfo } = popupStreamInfo
   console.log(isNotForInfo)
 
   const exitPopup = () => {
@@ -18,17 +18,20 @@ export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props
   console.log(popupStreamInfo)
 
   return (
-    <div className="stream-info-popup"
-    onClick={() => exitPopup()}
-  >
-    {
-      isNotForInfo ? 
-      <div>series</div> : (
-        <Info
-        popupStreamInfo={popupStreamInfo}
-        />
-      )
-    }
-  </div>
+    <div className="stream-info-popup">
+      <img className='exit-popup'
+        src='https://i.imgur.com/VFWwoQL.png'
+        alt='close-ico'
+        onClick={() => exitPopup()}
+      />
+      {
+        isNotForInfo ?
+          <div>series</div> : (
+            <Info
+              popupStreamInfo={popupStreamInfo}
+            />
+          )
+      }
+    </div>
   )
 }

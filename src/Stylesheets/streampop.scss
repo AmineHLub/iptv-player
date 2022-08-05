@@ -93,3 +93,21 @@
     }
   }
 }
+
+/* serie pop */
+
+.stream-info-popup {
+  .exit-popup {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    opacity: 0.6;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
