@@ -32,7 +32,7 @@ export default function Card({ liveData, type, setScrollValue, setPopupStreamInf
     <div
       className={type !== 'live' ? 'card-wrapper not-live' : 'card-wrapper'}
       style={styleBg()}
-      onClick={(e) => console.log('shouldnt')}
+      onClick={type === 'series' ? (e) => handlingStreamInfo(e, {...liveData, isNotForInfo:true}) : () => console.log('shouldnt')}
     >
       <img
         className='information'

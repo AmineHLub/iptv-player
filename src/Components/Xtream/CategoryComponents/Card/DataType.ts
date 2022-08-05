@@ -11,4 +11,5 @@ export default interface CategoryDataTypes {
   rating: string,
   backdrop_path: (string)[],
   youtube_trailer: string,
+  isNotForInfo?: boolean,
 }
