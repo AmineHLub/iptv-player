@@ -17,13 +17,8 @@ export default function CardPopup({popupStreamInfo, setPopupStreamInfo}: Props) 
     setPopupStreamInfo(null)
   }
 
-  const style = {
-    width: `calc(100% - ${MainWraperElement.offsetLeft}px)`,
-    }
-
   return (
     <div className="stream-info-popup"
-    style={style}
     onClick={() => exitPopup()}
     >
       <div className="img-container">

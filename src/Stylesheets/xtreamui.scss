@@ -244,13 +244,16 @@
       }
     }
     .card-listing {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 170px);
+      grid-gap: 1rem;
+      justify-content: space-evenly;
       .card-wrapper {
         position: relative;
         cursor: pointer;
         width: 170px;
         height: 200px;
+        margin: 10px;
         padding: 10px 5px;
         background-color: #1a1a1ac9;
         text-align: center;
@@ -306,9 +309,10 @@
         }
       }
       .stream-info-popup {
-        position: fixed;
-        top: 70px;
+        position: absolute;
+        top: 0;
         right: 0;
+        width: 100%;
         height: 100%;
         background: rgb(64,64,64);
         background: linear-gradient(48deg, rgba(64,64,64,1) 0%, rgba(26,26,26,1) 43%, rgba(0,0,0,1) 100%);
@@ -330,7 +334,6 @@
             font-weight: bold;
             margin: 0;
           }
-
         }
       }
     }
