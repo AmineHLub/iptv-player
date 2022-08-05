@@ -1,6 +1,7 @@
 import { useEffect, useContext } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './App.scss'
 import Splash from "./Splash"
 import XtreamDashboard from './Components/Xtream/XtreamDashboard';
 import { reCheckLogin } from './Components/Tools/getCategories';

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.scss'
 import iptvLogo from './Assets/iptv-logo.png'
 import m3uLogo from './Assets/m3u-logo.png'
 import xtreamLogo from './Assets/xtream-logo.png'

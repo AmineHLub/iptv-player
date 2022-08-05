@@ -1,5 +1,8 @@
 import { useEffect, useState, useContext } from 'react'
 import '../../Stylesheets/xtreamui.scss'
+import '../../Stylesheets/xtreamdashboard-sidebar.scss'
+import '../../Stylesheets/category-main-listing.scss'
+import '../../Stylesheets/streampop.scss'
 import { getLiveCategories, getVodCategories, getStreamCategories } from '../Tools/getCategories'
 import XtreamCategories from './CategoryComponents/XtreamCategories'
 import LoadingComponent from '../LoadingComponent'
