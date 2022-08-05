@@ -30,7 +30,7 @@ export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props
         <div className="details-info">
           <div className='genre-specs'>
             <div className='genre'>
-              <p>{releaseDate || ''}{genre || 'N/A'}</p>
+              <p>{releaseDate || ''}{' | '}{genre || 'N/A'}</p>
             </div>
             <div className='rating'>
               <p>{rating}</p>

@@ -73,7 +73,7 @@ export default function XtreamDashboard() {
               <div className='xtream-main-content'>
                 <div
                   className={liveCategories.length > 0 ? 'selection-card live-xtream' : 'selection-card live-xtream empty-xtream'}
-                  onClick={() => setStreamTypeAndData({
+                  onClick={() => liveCategories.length > 0 && setStreamTypeAndData({
                     streams: liveCategories,
                     type: 'live'
                   })}>
@@ -82,7 +82,7 @@ export default function XtreamDashboard() {
                 </div>
                 <div
                   className={vodCategories.length > 0 ? 'selection-card vod-xtream' : 'selection-card vod-xtream empty-xtream'}
-                  onClick={() => setStreamTypeAndData({
+                  onClick={() => vodCategories.length > 0 && setStreamTypeAndData({
                     streams: vodCategories,
                     type: 'vod'
                   })}>
@@ -91,7 +91,7 @@ export default function XtreamDashboard() {
                 </div>
                 <div
                   className={seriesCategories.length > 0 ? 'selection-card series-xtream' : 'selection-card series-xtream empty-xtream'}
-                  onClick={() => setStreamTypeAndData({
+                  onClick={() => vodCategories.length > 0 && setStreamTypeAndData({
                     streams: seriesCategories,
                     type: 'series'
                   })}>
