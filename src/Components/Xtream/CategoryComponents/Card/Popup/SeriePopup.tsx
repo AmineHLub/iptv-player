@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useContext, useRef } from 'react'
+import { useLayoutEffect, useState, useContext, useRef, MutableRefObject } from 'react'
 import { PlayListContext } from '../../../../../Contexts/PlayListContext'
 import LoadingComponent from '../../../../LoadingComponent'
 import axios from 'axios'
@@ -13,8 +13,8 @@ export default function SeriePopup({ id }: { id: string | number }) {
   const [currentSeason, setCurrentSeason] = useState(0)
   const [currentEpisode, setCurrentEpisode] = useState(0)
   const [prevScrollValue, setPrevScrollValue] = useState(0)
-  const [slidingBreakPoints, setSlidingBreakPoints] = useState(null as any)
-  const seasonList = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const [slidingBreakPoints, setSlidingBreakPoints] = useState(null as any | (number)[])
+  const seasonList = useRef() as MutableRefObject<HTMLInputElement>;
 
   const fetchSerieInfo = async () => {
     const url =
