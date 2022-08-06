@@ -19,7 +19,7 @@ export default function Info({ popupStreamInfo }: {popupStreamInfo: CategoryData
             <p>{releaseDate || ''}{' | '}{genre || 'N/A'}</p>
           </div>
           <div className='rating'>
-            <p>{rating}</p>
+            <p>{rating || 'N/A'}</p>
             <img src='https://i.imgur.com/81I7vNr.png' alt='imdb-logo' />
           </div>
         </div>
@@ -39,7 +39,7 @@ export default function Info({ popupStreamInfo }: {popupStreamInfo: CategoryData
       <div className='covers-container'>
         {
           backdrop_path?.slice(0, 4).map((img, index) => (
-            <div key={index} style={{ backgroundImage: `url(https://i.imgur.com/JcImM53.png), url(${img})` }}>
+            <div key={index} style={{ backgroundImage: `url(${img}), url(https://i.imgur.com/JcImM53.png)` }}>
             </div>
           ))
         }

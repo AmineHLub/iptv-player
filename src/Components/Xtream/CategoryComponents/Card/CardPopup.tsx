@@ -1,5 +1,6 @@
 import CategoryDataTypes from './DataType'
 import Info from './Popup/Info'
+import SeriePopup from './Popup/SeriePopup'
 
 type Props = {
   popupStreamInfo: CategoryDataTypes,
@@ -9,13 +10,10 @@ type Props = {
 export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props) {
 
   const { isNotForInfo } = popupStreamInfo
-  console.log(isNotForInfo)
 
   const exitPopup = () => {
     setPopupStreamInfo(null)
   }
-
-  console.log(popupStreamInfo)
 
   return (
     <div className="stream-info-popup">
@@ -26,7 +24,10 @@ export default function CardPopup({ popupStreamInfo, setPopupStreamInfo }: Props
       />
       {
         isNotForInfo ?
-          <div>series</div> : (
+          <SeriePopup
+            id={popupStreamInfo.series_id}
+           /> 
+           : (
             <Info
               popupStreamInfo={popupStreamInfo}
             />
