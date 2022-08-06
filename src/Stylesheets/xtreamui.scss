@@ -1,0 +1,119 @@
+.loading-component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(133, 133, 133, 0.37);
+  filter: drop-shadow(0 0 0 rgb(121, 121, 121));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.xtream-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 10px 20px;
+  color: white;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    .iptv-logo {
+    align-self: center;
+    height: 50px;
+      img {
+        height: 100%;
+      }
+    }
+    p {
+      margin-top: 10px;
+    }
+    .nav-control {
+      display: flex;
+      margin-top: 10px;
+      img {
+        height: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
+.xtream-main {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .xtream-main-content {
+    cursor: pointer;
+    height: 100%;
+    width: 85%;
+    max-width: 1400px;
+    border-radius: 5px;
+    background-color: #1a1a1a1f;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    .selection-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 30%;
+      max-width: 450px;
+      height: 80%;
+      border-radius: 10px;
+      background-color: #1a1a1abf;
+      opacity: 0.8;
+      color: #b7b7b7;
+      & img {
+        width: 60%;
+        max-width: 140px;
+        min-width: 70px;
+        margin-bottom: 30px;
+      }
+      &.empty-xtream {
+        cursor: default;
+        opacity: 0.4 !important;
+        &:hover {
+          opacity: 0.4 !important;
+        }
+      }
+      &:not(.empty-xtream):hover {
+        opacity: 1;
+        color: #b7b7b7;
+      }
+    }
+  }
+}
+
+.xtream-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  padding: 10px 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
