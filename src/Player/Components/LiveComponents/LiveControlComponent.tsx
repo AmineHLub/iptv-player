@@ -1,25 +1,29 @@
 import { Base64 } from 'js-base64';
 import epgTimeConverter from '../../tools/epgTimeConverter';
 import { EpgInfoTypes, VideoInfoTypes } from './Types/LiveTypes';
+import { controleHandler } from '../../tools/controlHandlers'
+
 
 type Props = {
   getFrameratesInfo: any,
   fpsRef: any,
   isPlaying: boolean,
-  controleHandler: (action: string) => void
+  setIsPlaying: (isPlaying: boolean) => void,
   epgInfo: [] | EpgInfoTypes[],
   videoInformation: null  | VideoInfoTypes,
   showControls: boolean,
+  playerRef: React.MutableRefObject<HTMLVideoElement>,
 }
 
 export default function LiveControlComponent({
-  getFrameratesInfo,
+   getFrameratesInfo,
    fpsRef,
    isPlaying,
-   controleHandler,
    epgInfo,
    videoInformation,
-   showControls
+   showControls,
+   setIsPlaying,
+   playerRef,
   }: Props) {
     
   return (
@@ -31,7 +35,7 @@ export default function LiveControlComponent({
       <h2>
         <img 
         src={isPlaying ? 'https://i.imgur.com/iIX7eWV.png' : 'https://i.imgur.com/uIcuumh.png'} alt='logo-play-stop'
-        onClick={() => isPlaying?  controleHandler('stop') : controleHandler('play')} />
+        onClick={() => isPlaying?  {action : 'stop', playerRef, isPlaying, setIsPlaying} : {action : 'play', playerRef, isPlaying, setIsPlaying}} />
         Bein Sports Premium 2 HD
         </h2>
       <p>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', })}</p>
