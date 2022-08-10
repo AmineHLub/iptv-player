@@ -25,12 +25,18 @@ export const handleWheelControls = ({wheelValue, playerRef, setIsMuted, setVolum
     if (playerRef.current.muted) {
       playerRef.current.muted = false
       setIsMuted(false)
+      playerRef.current.volume = 0.2
+      setVolumeValue(playerRef.current.volume)
+    } else {
+      if (playerRef.current.volume < 1) {
+        playerRef.current.volume += 0.2
+        setVolumeValue(playerRef.current.volume)
+      }
     }
-    playerRef.current.volume < 1 && (playerRef.current.volume += 0.2)
-    setVolumeValue(playerRef.current.volume)
+
   }
   else { // wheel down
-    if (playerRef.current.volume >= 0.2) {
+    if (playerRef.current.volume > 0.3) {
       playerRef.current.volume -= 0.2
       setVolumeValue(playerRef.current.volume)
     } else {

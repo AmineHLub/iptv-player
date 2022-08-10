@@ -17,15 +17,19 @@ type Props = {
   livePlayerRef: MutableRefObject<HTMLVideoElement>,
   isPlaying: boolean,
   setIsPlaying: (isPlaying: boolean) => void,
+  isMuted: boolean,
+  volumeValue: number,
 }
 
 export default function LivePlayerContainer({
   showControls,
   livePlayerRef,
   setIsPlaying,
-  isPlaying }: Props) {
+  isPlaying,
+  isMuted,
+  volumeValue }: Props) {
 
-  const url = 'http://line.4k-ott.com:80/live/F253D2/5A8D30/147977.m3u8'
+  const url = '//'
   // Refs
   const fpsRef = useRef() as MutableRefObject<HTMLParagraphElement>;
 
@@ -39,7 +43,7 @@ export default function LivePlayerContainer({
 
   useEffect(() => {
     livePlayerRef.current?.addEventListener('play', onPlayVideo);
-    getLiveEpg({ setEpgInfo })
+    getLiveEpg({ setEpgInfo, streamId: '147977'})
     return () => {
       livePlayerRef.current?.removeEventListener('play', onPlayVideo);
     }
@@ -70,6 +74,8 @@ export default function LivePlayerContainer({
         showControls={showControls}
         playerRef={livePlayerRef}
         setIsPlaying={setIsPlaying}
+        isMuted={isMuted}
+        volumeValue={volumeValue}
       />
     </div>
   )

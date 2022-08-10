@@ -16,7 +16,6 @@ export default function Player() {
   const [isMuted, setIsMuted] = useState(true as boolean)
   const [volumeValue, setVolumeValue] = useState(0 as number)
 
-
   const clearingTimeout = setTimeout(() => {
     setShowControls(false)
   }, 3000)
@@ -60,6 +59,8 @@ export default function Player() {
             livePlayerRef={livePlayerRef}
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
+            isMuted={isMuted}
+            volumeValue={volumeValue}
           />
           : <VodSeriesPlayer />
       }

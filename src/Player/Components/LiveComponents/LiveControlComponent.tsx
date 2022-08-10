@@ -13,6 +13,8 @@ type Props = {
   videoInformation: null  | VideoInfoTypes,
   showControls: boolean,
   playerRef: React.MutableRefObject<HTMLVideoElement>,
+  isMuted: boolean,
+  volumeValue: number,
 }
 
 export default function LiveControlComponent({
