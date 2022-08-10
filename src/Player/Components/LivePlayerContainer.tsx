@@ -19,6 +19,7 @@ type Props = {
   setIsPlaying: (isPlaying: boolean) => void,
   isMuted: boolean,
   volumeValue: number,
+  showVolumeNotification: boolean,
 }
 
 export default function LivePlayerContainer({
@@ -27,9 +28,10 @@ export default function LivePlayerContainer({
   setIsPlaying,
   isPlaying,
   isMuted,
-  volumeValue }: Props) {
+  volumeValue,
+  showVolumeNotification }: Props) {
 
-  const url = '//'
+  const url = ''
   // Refs
   const fpsRef = useRef() as MutableRefObject<HTMLParagraphElement>;
 
@@ -43,7 +45,7 @@ export default function LivePlayerContainer({
 
   useEffect(() => {
     livePlayerRef.current?.addEventListener('play', onPlayVideo);
-    getLiveEpg({ setEpgInfo, streamId: '147977'})
+    getLiveEpg({ setEpgInfo, streamId: '147977' })
     return () => {
       livePlayerRef.current?.removeEventListener('play', onPlayVideo);
     }
@@ -58,7 +60,6 @@ export default function LivePlayerContainer({
         src={url}
         autoPlay
         controls={false}
-        onVolumeChange={(volume) => console.log(volume)}
         loop
         muted
         width="100%"
@@ -77,6 +78,12 @@ export default function LivePlayerContainer({
         isMuted={isMuted}
         volumeValue={volumeValue}
       />
+      <div className={showVolumeNotification? 'volume-notification-container show' : 'volume-notification-container'}>
+        <img src={isMuted ? 'https://i.imgur.com/PaJOBjp.png' : 'https://i.imgur.com/9Y3Ybi0.png'} alt='mute-status-logo' />
+        <div className='volume-bar-container'>
+          <div className="volume-progress-bar" style={{ width: `${volumeValue * 100}%` }}></div>
+        </div>
+      </div>
     </div>
   )
 }
