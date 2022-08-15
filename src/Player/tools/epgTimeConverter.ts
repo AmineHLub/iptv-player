@@ -7,7 +7,9 @@ const epgTimeConverter = (start: string, end: string): string => {
     hour: '2-digit',
     minute: '2-digit',
   });
-  return `${startTime} - ${endTime}`;
+  if(startTime !== 'Invalid Date') {
+    return `${startTime} - ${endTime} :`;
+  } else return '';
 }
 
 export default epgTimeConverter;

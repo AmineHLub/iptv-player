@@ -1,13 +1,16 @@
 import axios from "axios"
 import {EpgInfoTypes} from '../Components/LiveComponents/Types/LiveTypes'
+import {xtreamData} from '../PlayerPropTypes'
+
 type Props = {
   setEpgInfo: (epgInfo:[] | EpgInfoTypes[]) => void
   streamId?: number | string
+  xtreamData: xtreamData
 }
 
-const getLiveEpg = ({setEpgInfo, streamId}:Props) => {
+const getLiveEpg = ({setEpgInfo, streamId, xtreamData}:Props) => {
   try {
-    axios.get(`http://line.4k-ott.com:80/player_api.php?username=F253D2&password=5A8D30&action=&action=get_short_epg&stream_id=${streamId}&&limit=2`)
+    axios.get(`http://${xtreamData.url}/player_api.php?username=${xtreamData.user_info.username}&password=${xtreamData.user_info.password}&action=get_short_epg&stream_id=${streamId}&&limit=2`)
       .then((res) => {
         setEpgInfo(res.data.epg_listings)
       })
@@ -17,7 +20,7 @@ const getLiveEpg = ({setEpgInfo, streamId}:Props) => {
     setEpgInfo([])
   }
   setTimeout(() => {
-    getLiveEpg({setEpgInfo, streamId})
+    getLiveEpg({setEpgInfo, streamId, xtreamData})
   }, 5 * 60000) // every 5 minutes
 }
 

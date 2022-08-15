@@ -1,82 +1,74 @@
-import { useState, useRef, MutableRefObject } from 'react'
+import { useState } from 'react'
 import './Stylesheets/main-player-app.scss'
 import LivePlayerContainer from './Components/LivePlayerContainer'
 import VodSeriesPlayer from './Components/VodSeriesPlayer'
-import { controleHandler, handleWheelControls } from './tools/controlHandlers'
+import { Props } from './PlayerPropTypes'
 
-export default function Player() {
+export default function Player({ live, notLive, partOfApp }: Props) {
 
-  // refs
-  const IsLive = true
-  const livePlayerRef = useRef() as MutableRefObject<HTMLVideoElement>;
-  // hooks
-  const [showControls, setShowControls] = useState(false as boolean)
-  const [isPlaying, setIsPlaying] = useState(true as boolean)
-  const [isFullScreen, setIsFullScreen] = useState(false as boolean)
-  const [isMuted, setIsMuted] = useState(true as boolean)
-  const [volumeValue, setVolumeValue] = useState(0 as number)
-  const [showVolumeNotification, setShowVolumeNotification] = useState(false as boolean)
-
-  // interractions & GUI control
-  const untoggleControls = setTimeout(() => {
-    setShowControls(false)
-  }, 4000)
-  const toggleControls = () => {
-    setShowControls(true)
-    clearTimeout(untoggleControls)
+  if (live) {
+    var { xtreamData, playlist, hlsConfig } = live!
   }
 
-  const untoggleVolumePopup = setTimeout(() => {
-    setShowVolumeNotification(false)
-  }, 3000)
-  const showVolumePopup = () => {
-    setShowVolumeNotification(true)
-    clearTimeout(untoggleVolumePopup)
+  if (notLive) {
+    var { xtreamData, playlist, type } = notLive!
   }
-
-  const handleKeyActions = (e: string) => {
-    switch (e) {
-      case ' ':
-        controleHandler({ action: 'play', playerRef: livePlayerRef, isPlaying, setIsPlaying })
-        break;
-      case 'f':
-        controleHandler({ action: 'fullscreen', playerRef: livePlayerRef, isFullScreen, setIsFullScreen })
-        break;
-      case 'm':
-        controleHandler({ action: 'mute', playerRef: livePlayerRef, isMuted, setIsMuted })
-        break;
-      case 'ArrowUp':
-        handleWheelControls({ wheelValue: -10, playerRef: livePlayerRef, setVolumeValue, setIsMuted, isMuted })
-        showVolumePopup()
-        break;
-      case 'ArrowDown':
-        handleWheelControls({ wheelValue: +10, playerRef: livePlayerRef, setVolumeValue, setIsMuted, isMuted })
-        showVolumePopup()
-    }
-  }
-
+  
+  const [currentStream, setCurrentStream] = useState(live?.selectedStreamId || notLive?.selectedStreamId || undefined)
 
   return (
-    <div className="player-app-container"
-      tabIndex={0}
-      onMouseMove={() => toggleControls()}
-      onDoubleClick={() => controleHandler({ action: 'fullscreen', playerRef: livePlayerRef, isFullScreen, setIsFullScreen })}
-      onKeyDown={(e) => handleKeyActions(e.key)}
-      onWheel={(e) => { handleWheelControls({ wheelValue: e.deltaY, playerRef: livePlayerRef, setVolumeValue, setIsMuted, isMuted }); showVolumePopup()}}
-    >
+    <>
       {
-        IsLive
-          ? <LivePlayerContainer
-            showControls={showControls}
-            livePlayerRef={livePlayerRef}
-            isPlaying={isPlaying}
-            setIsPlaying={setIsPlaying}
-            isMuted={isMuted}
-            volumeValue={volumeValue}
-            showVolumeNotification={showVolumeNotification}
-          />
-          : <VodSeriesPlayer />
+        live ? (
+            <LivePlayerContainer
+              partOfApp={partOfApp ? partOfApp : undefined}
+              data={{ xtreamData, currentStream }}
+              config={hlsConfig ? { ...hlsConfig } : false}
+            />
+        ) : (
+            <VodSeriesPlayer 
+            partOfApp={partOfApp ? partOfApp : undefined}
+            data={{ xtreamData, currentStream }}
+            type={type}
+            setCurrentStream={setCurrentStream}
+            playlist={playlist ? playlist : undefined}
+            />
+        )
       }
-    </div>
+      {
+        live && playlist ? (
+          <div className='playlist-container' onMouseMove={(e) => e.stopPropagation()} onWheel={(e) => e.stopPropagation()}>
+            {
+              playlist && playlist.map((item) => (
+                <div
+                  key={item.stream_id}
+                  className={currentStream?.stream_id && item.stream_id === currentStream.stream_id ? 'stream-container selected' : 'stream-container'}
+                  onClick={() => setCurrentStream(item)}
+                >
+                  <img src={item.stream_icon} alt={item.name} />
+                  <h2>{item.name}</h2>
+                </div>
+              ))
+            }
+          </div>
+        ) : 
+        notLive && playlist ? (
+          <div className='playlist-container' onMouseMove={(e) => e.stopPropagation()} onWheel={(e) => e.stopPropagation()}>
+          {
+            playlist && playlist.map((item) => (
+              <div
+                key={item.id}
+                className={currentStream?.id && item.id === currentStream.id ? 'stream-container selected' : 'stream-container'}
+                onClick={() => setCurrentStream(item)}
+              >
+                <img src={item.info?.movie_image || item.info?.cover || item.info?.stream_icon} alt={(item.id).toString()} />
+                <h2>{item.title.split('.').join(' ')}</h2>
+              </div>
+            ))
+          }
+        </div>
+        ) : null
+      }
+    </>
   )
 }

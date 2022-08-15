@@ -2,7 +2,7 @@
 
 type wheelControls = {
   wheelValue:number
-  playerRef: React.MutableRefObject<HTMLVideoElement>
+  playerRef: any
   setIsMuted: (isMuted: boolean) => void
   setVolumeValue: (volumeValue: number) => void
   isMuted: boolean
@@ -10,7 +10,7 @@ type wheelControls = {
 
 type playerControls = {
   action: string // important
-  playerRef: React.MutableRefObject<HTMLVideoElement> // important
+  playerRef: any // important
 
   setIsPlaying?: (isPlaying: boolean) => void
   setIsFullScreen?: (isFullScreen: boolean) => void
@@ -22,25 +22,25 @@ type playerControls = {
 
 export const handleWheelControls = ({wheelValue, playerRef, setIsMuted, setVolumeValue}:wheelControls) => {
   if (wheelValue < 0) { // wheel up
-    if (playerRef.current.muted) {
-      playerRef.current.muted = false
+    if (playerRef.muted) {
+      playerRef.muted = false
       setIsMuted(false)
-      playerRef.current.volume = 0.2
-      setVolumeValue(playerRef.current.volume)
+      playerRef.volume = 0.2
+      setVolumeValue(playerRef.volume)
     } else {
-      if (playerRef.current.volume < 1) {
-        playerRef.current.volume += 0.2
-        setVolumeValue(playerRef.current.volume)
+      if (playerRef.volume < 1) {
+        playerRef.volume += 0.2
+        setVolumeValue(playerRef.volume)
       }
     }
 
   }
   else { // wheel down
-    if (playerRef.current.volume > 0.3) {
-      playerRef.current.volume -= 0.2
-      setVolumeValue(playerRef.current.volume)
+    if (playerRef.volume > 0.3) {
+      playerRef.volume -= 0.2
+      setVolumeValue(playerRef.volume)
     } else {
-      playerRef.current.muted = true;
+      playerRef.muted = true;
       setIsMuted(true);
       setVolumeValue(0)
     } 
@@ -48,14 +48,13 @@ export const handleWheelControls = ({wheelValue, playerRef, setIsMuted, setVolum
 }
 
 export const controleHandler = ({action, isPlaying, playerRef, setIsPlaying, isFullScreen, setIsFullScreen,setIsMuted, isMuted}: playerControls) => {
-    console.log(action)  
 if (action ==='play' && setIsPlaying) {
       if (!isPlaying) {
-        playerRef.current.play()
+        playerRef.play()
         setIsPlaying(true)
       }
       else {
-        playerRef.current.pause()
+        playerRef.pause()
         setIsPlaying(false)
       }
     }
@@ -70,12 +69,12 @@ if (action ==='play' && setIsPlaying) {
       }
     }
     if (action ==='stop' && setIsPlaying) {
-      playerRef.current.pause()
-      playerRef.current.currentTime = 0
+      playerRef.pause()
+      playerRef.currentTime = 0
       setIsPlaying(false)
     }
     if ('mute' && setIsMuted) {
-      playerRef.current.muted = !playerRef.current.muted
+      playerRef.muted = !playerRef.muted
       setIsMuted(!isMuted)
     }
 }

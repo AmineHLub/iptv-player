@@ -1,15 +1,21 @@
+import { useContext, useState } from 'react'
 import CategoryDataTypes from './DataType'
 import validateUrl from '../../../Tools/validateUrl'
+import { PlayListContext } from '../../../../Contexts/PlayListContext'
+import Player from '../../../../Player/Player'
 
 type PropTypes = {
   liveData: CategoryDataTypes
   type: string
   setPopupStreamInfo: (popupStreamInfo: null | CategoryDataTypes) => void
   setScrollValue: (scrollValue: number) => void
+  categoryData: CategoryDataTypes[]
 }
 
-export default function Card({ liveData, type, setScrollValue, setPopupStreamInfo }: PropTypes) {
+export default function Card({ liveData, type, setScrollValue, setPopupStreamInfo, categoryData }: PropTypes) {
   const { stream_id, series_id, stream_icon, cover, name } = liveData
+  const { playlist } = useContext(PlayListContext as any)
+  const [mountedPlayer, setMountedPlayer] = useState(null as any)
 
   const styleBg = () => {
     if (type !== 'live') {
@@ -28,11 +34,44 @@ export default function Card({ liveData, type, setScrollValue, setPopupStreamInf
     setPopupStreamInfo(data)
   }
 
+  const handleCardOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, type: string) => {
+    switch (type) {
+      case 'live':
+        const live = {
+          selectedStreamId: liveData,
+          playlist: categoryData,
+          xtreamData: playlist,
+        }
+        setMountedPlayer({
+          type: 'live',
+          data: live,
+        })
+        break
+      case 'series':
+        handlingStreamInfo(e, { ...liveData, isNotForInfo: true })
+        break
+      case 'vod':
+        const notLive = {
+          type: 'vod',
+          selectedStreamId: liveData,
+          xtreamData: playlist,
+        }
+        setMountedPlayer({
+          type: 'notLive',
+          data: notLive,
+        })
+        break
+      default:
+        break
+    }
+  }
+
   return (
+    <>
     <div
       className={type !== 'live' ? 'card-wrapper not-live' : 'card-wrapper'}
       style={styleBg()}
-      onClick={type === 'series' ? (e) => handlingStreamInfo(e, {...liveData, isNotForInfo:true}) : () => console.log('shouldnt')}
+      onClick={(e) => handleCardOnClick(e, type)}
     >
       <img
         className='information'
@@ -50,5 +89,8 @@ export default function Card({ liveData, type, setScrollValue, setPopupStreamInf
       }
       <h2>{liveData.name.replace(/[^a-zA-Z0-9 \[|\]]/g, '')}</h2>
     </div>
+    { mountedPlayer?.type === 'live' ? <Player live={mountedPlayer.data} partOfApp={() => setMountedPlayer(null)} /> :
+     mountedPlayer?.type === 'notLive' ? <Player notLive={mountedPlayer.data} partOfApp={() => setMountedPlayer(null)} /> : null }
+    </>
   )
 }

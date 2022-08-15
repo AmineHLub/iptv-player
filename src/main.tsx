@@ -7,7 +7,7 @@ import PlayListProvider from './Contexts/PlayListContext'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <PlayListProvider>
-      <Player />
+      <App />
     </PlayListProvider>
   </React.StrictMode>
 )

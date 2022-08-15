@@ -12,4 +12,7 @@ export default interface CategoryDataTypes {
   backdrop_path: (string)[],
   youtube_trailer: string,
   isNotForInfo?: boolean,
+  num: number,
+  stream_type: string,
+  category_id: string | number,
 }

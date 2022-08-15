@@ -60,6 +60,7 @@ export default function XtreamCategoryContent({ category, type }: PropTypes) {
                   key={item.stream_id || index}
                   setPopupStreamInfo={setPopupStreamInfo}
                   liveData={item}
+                  categoryData={categoryData}
                   type={type} />
               )
               }

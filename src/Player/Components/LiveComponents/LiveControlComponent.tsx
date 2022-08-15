@@ -15,6 +15,7 @@ type Props = {
   playerRef: React.MutableRefObject<HTMLVideoElement>,
   isMuted: boolean,
   volumeValue: number,
+  channelName: string,
 }
 
 export default function LiveControlComponent({
@@ -26,6 +27,7 @@ export default function LiveControlComponent({
    showControls,
    setIsPlaying,
    playerRef,
+   channelName
   }: Props) {
     
   return (
@@ -37,15 +39,15 @@ export default function LiveControlComponent({
       <h2>
         <img 
         src={isPlaying ? 'https://i.imgur.com/iIX7eWV.png' : 'https://i.imgur.com/uIcuumh.png'} alt='logo-play-stop'
-        onClick={() => isPlaying?  {action : 'stop', playerRef, isPlaying, setIsPlaying} : {action : 'play', playerRef, isPlaying, setIsPlaying}} />
-        Bein Sports Premium 2 HD
+        onClick={() => isPlaying?  controleHandler({action : 'stop', playerRef: playerRef.current, isPlaying, setIsPlaying}) : controleHandler({action : 'play', playerRef: playerRef.current, isPlaying, setIsPlaying})} />
+        {channelName}
         </h2>
       <p>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', })}</p>
     </div>
     <div className="channel-info">
       <div className="channel-info-epg-container">
-        <p>{epgTimeConverter(epgInfo[0]?.start, epgInfo[0]?.end)} : {epgInfo.length ? Base64.decode(epgInfo[0]?.title) : 'No program data'} </p>
-        <p>{epgTimeConverter(epgInfo[1]?.start, epgInfo[1]?.end)} : {epgInfo.length > 1 ? Base64.decode(epgInfo[1]?.title) : 'No program data'}</p>
+        <p>{epgTimeConverter(epgInfo[0]?.start, epgInfo[0]?.end)}{epgInfo.length ? Base64.decode(epgInfo[0]?.title) : 'No program data'} </p>
+        <p>{epgTimeConverter(epgInfo[1]?.start, epgInfo[1]?.end)}{epgInfo.length > 1 ? Base64.decode(epgInfo[1]?.title) : 'No program data'}</p>
       </div>
       <div className="channel-info-codec-container">
         <p>{videoInformation ? videoInformation.resolution : ''}</p>

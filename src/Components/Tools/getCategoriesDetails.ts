@@ -16,7 +16,6 @@ export const getCategoriesDetails = async (url:string, username:string, password
       builtUrl = `http://${url}/player_api.php?username=${username}&password=${password}&action=get_live_streams&category_id=${category_id}`;
 }
   try {
-    console.log(builtUrl)
     const response = await axios(builtUrl);
     return response.data;
   } catch (error) {

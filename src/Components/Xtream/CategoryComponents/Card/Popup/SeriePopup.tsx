@@ -5,6 +5,7 @@ import axios from 'axios'
 import SerieRequestTypes from './SerieRequestTypes'
 import { SeasonsInnerInterface } from './SerieRequestTypes'
 import toMinuteConverter from '../../../../Tools/toMinuteConverter'
+import Player from '../../../../../Player/Player'
 
 export default function SeriePopup({ id }: { id: string | number }) {
   const { playlist } = useContext(PlayListContext as any)
@@ -14,6 +15,7 @@ export default function SeriePopup({ id }: { id: string | number }) {
   const [currentEpisode, setCurrentEpisode] = useState(0)
   const [prevScrollValue, setPrevScrollValue] = useState(0)
   const [slidingBreakPoints, setSlidingBreakPoints] = useState(null as any | (number)[])
+  const [mountedPlayer, setMountedPlayer] = useState(null as any)
   const seasonList = useRef() as MutableRefObject<HTMLInputElement>;
 
   const fetchSerieInfo = async () => {
@@ -46,7 +48,6 @@ export default function SeriePopup({ id }: { id: string | number }) {
     })
 
   }, [])
-
 
   const onScroll = () => {
     if (seasonList.current.scrollTop > prevScrollValue) { // sliding down
@@ -97,6 +98,11 @@ export default function SeriePopup({ id }: { id: string | number }) {
                       {
                         (data.episodes[`${i + 1}`] as any).map((episode: SeasonsInnerInterface, num: number) => (
                           <div key={episode.id} id={episode.id.toString()}
+                            onClick={() => setMountedPlayer({
+                              type: 'serie',
+                              selectedStreamId : episode,
+                              xtreamData: playlist,
+                              playlist: data.episodes[`${i + 1}`] as any})}
                             className={currentEpisode === episode.id ? 'episode-container-card active-ep-card' : 'episode-container-card'}
                           >
                             <img src={episode.info.movie_image || data.info.cover || data.info.stream_icon || 'https://i.imgur.com/4nqxosG.png'} alt='episode' />
@@ -135,6 +141,7 @@ export default function SeriePopup({ id }: { id: string | number }) {
           </div>
         </>
       )}
+      {mountedPlayer && <Player notLive={mountedPlayer} partOfApp={() => setMountedPlayer(null)}/>}
     </div>
   )
 }
